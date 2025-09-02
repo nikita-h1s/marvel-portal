@@ -1,0 +1,22 @@
+.character-gallery {
+    display: grid;
+    position: relative;
+    align-items: center;
+    grid-template-columns: repeat(3, 200px);
+    grid-template-rows: repeat(3, 318px);
+    gap: 25px;
+    margin-bottom: 45px;
+}
+
+.character-gallery img:not(.ultron-img) {
+    height: 200px;
+    object-fit: cover;
+}
+
+.ultron-img {
+    position: absolute;
+    width: 467px;
+    height: 372px;
+    left: 807px;
+    bottom: 20px;
+}

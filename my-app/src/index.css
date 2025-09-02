@@ -1,0 +1,15 @@
+:root {
+    font-family: 'Roboto Condensed', sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    --main-red-color: #9F0013;
+    --main-gray-color: #5C5C5C;
+    --main-dark-gray-color: #232222;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+

@@ -1,0 +1,40 @@
+.custom-btn {
+    font-family: inherit;
+    width: 101px;
+    height: 38px;
+    text-transform: uppercase;
+    color: white;
+    font-size: 14px;
+    font-weight: 400;
+    border: none;
+    padding: 11px 18px;
+    cursor: pointer;
+    background-color: var(--main-red-color);
+
+    clip-path: polygon(
+            10px 0,
+            100% 0,
+            100% calc(100% - 10px),
+            calc(100% - 10px) 100%,
+            0 100%,
+            0 10px
+    );
+
+    transition: 0.3s;
+}
+
+.custom-btn:hover {
+    filter: brightness(1.2);
+}
+
+.custom-btn.red {
+    background-color: var(--main-red-color);
+}
+
+.custom-btn.gray {
+    background-color: var(--main-gray-color);
+}
+
+.custom-btn:disabled {
+    filter: grayscale(0.5);
+}

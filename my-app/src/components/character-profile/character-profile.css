@@ -1,0 +1,72 @@
+.character-profile {
+    padding: 25px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+    margin-left: 25px;
+    width: 425px;
+}
+
+.character-profile img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.character-profile-text {
+    font-size: 14px;
+    font-weight: 400;
+    text-align: left;
+    margin-top: 15px;
+}
+
+.character-profile-wrapper {
+    display: flex;
+}
+
+.character-profile-title {
+    font-size: 22px;
+    text-transform: uppercase;
+}
+
+.character-profile-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 25px;
+}
+
+.character-profile-btn-wrapper {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 30px;
+}
+
+.character-profile-comics {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.character-profile-comics h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.character-profile-comics-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.character-profile-comics-list__item {
+    padding: 4px 10px;
+    max-width: 100%;
+    text-align: left;
+    line-height: 16px;
+    font-size: 14px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+

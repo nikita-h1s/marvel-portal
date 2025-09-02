@@ -1,0 +1,47 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-title {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.header-title span {
+    color: var(--main-red-color);
+}
+
+.header-links {
+    display: flex;
+    gap: 8px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header-links a {
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.link-characters {
+    color: var(--main-red-color);
+}
+
+.link-comics {
+    color: #000;
+}
+
+.header-links:hover .link-characters {
+    color: #000;
+}
+
+.header-links:hover .link-comics {
+    color: var(--main-red-color);
+}
+
+.header-links:hover .link-comics {
+    transition-delay: 0.1s;
+}
