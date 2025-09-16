@@ -2,7 +2,6 @@ import {useParams, Link} from "react-router";
 import {useEffect, useState} from "react";
 
 import './single-comic-page.css'
-import Thor from '../../assets/Thor.jpg';
 import ComicsCommercial from '../comics-commercial/comics-commercial.jsx';
 import Spinner from '../spinner/spinner.jsx';
 import ErrorMessage from '../error-message/error-message.jsx'
