@@ -1,6 +1,12 @@
 import './button.css'
 
-const Button = ({bgColor="red", text, width=101, style={}, ...props}) => {
+const Button = ({
+                    bgColor="red",
+                    text, width=101,
+                    style={},
+                    className="",
+                    ...props
+}) => {
     const combinedStyle = {
         ...style,
         width: `${width}px`,
@@ -8,7 +14,7 @@ const Button = ({bgColor="red", text, width=101, style={}, ...props}) => {
 
     return (
         <button
-            className={`custom-btn ${bgColor}`}
+            className={`custom-btn ${bgColor} ${className}`}
             style={combinedStyle}
             {...props}>
             {text}

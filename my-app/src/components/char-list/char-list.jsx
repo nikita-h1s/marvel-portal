@@ -21,10 +21,6 @@ const CharList = (props) => {
     // Invoked after content render
     useEffect(() => {
         onRequest(offset, true);
-        // window.addEventListener('scroll', handleScroll);
-        // return () => {
-        //     window.removeEventListener('scroll', handleScroll);
-        // }
     }, [])
 
     const onRequest = (currentOffset, initial) => {
@@ -32,18 +28,6 @@ const CharList = (props) => {
         initial ? setNewItemLoading(false) : setNewItemLoading(true);
         getAllCharacters(currentOffset)
             .then(onCharListLoaded)
-    }
-
-    const handleScroll = () => {
-        if (newItemLoading) return;
-
-        const scrollTop = window.scrollY;
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-
-        if (scrollTop + windowHeight >= documentHeight - 1) {
-            onRequest(offset);
-        }
     }
 
     const onCharListLoaded = (newCharList) => {

@@ -1,6 +1,41 @@
-.comics-gallery-commercial {
-    margin-top: 50px;
-    background-color: #232222;
-    height: 100px;
-    width: 100%;
+.comics-gallery {
+    margin-top: 45px;
+    margin-bottom: 45px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+    column-gap: 67px;
+    row-gap: 55px;
+}
+
+.comics-gallery-element-wrapper {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.comics-gallery-item {
+    width: 225px;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.comics-gallery-item img {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    width: inherit;
+}
+
+.comics-gallery-item-title {
+    font-weight: bold;
+    line-height: 18px;
+}
+
+.comics-gallery-item-price {
+    margin-top: 9px;
+    opacity: 0.6;
+}
+
+.comics-gallery-btn {
+    margin-bottom: 50px;
 }

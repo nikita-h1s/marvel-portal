@@ -9,15 +9,30 @@ import ErrorMessage from "../error-message/error-message.jsx";
 import Skeleton from "../skeleton/skeleton.jsx";
 
 import useMarvelService from "../../services/marvel-service.jsx";
+import {Link} from "react-router";
 
 const CharacterProfile = (props) => {
     const [char, setChar] = useState(null);
+    const [allComics, setAllComics] = useState([]);
 
-    const {loading, error, getCharacter, clearError} = useMarvelService();
+    const {loading, error, getCharacter, getAllComics, clearError} = useMarvelService();
 
     useEffect(() => {
         updateChar();
     }, [props.charId])
+
+    useEffect(() => {
+        const fetchComics = async () => {
+            try {
+                const data = await getAllComics();
+                setAllComics(data);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        fetchComics();
+    }, [])
 
     const updateChar = () => {
         const {charId} = props;
@@ -37,7 +52,7 @@ const CharacterProfile = (props) => {
     const skeleton = char || loading || error ? null : <Skeleton/>;
     const errorMessage = error ? <ErrorMessage/> : null;
     const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error || !char) ? <View char={char}/> : null;
+    const content = !(loading || error || !char) ? <View char={char} allComics={allComics}/> : null;
 
     return (
         <div className="character-profile">
@@ -49,19 +64,31 @@ const CharacterProfile = (props) => {
     )
 }
 
-const View = ({char}) => {
+const View = ({char, allComics}) => {
     const {name, description, thumbnail, homepage, wiki, comics} = char;
 
     const loadComicsList = (comics) => {
-        if (comics.length === 0) {
+        if (!comics || comics.length === 0) {
             return "No comics found.";
         }
 
-        const comicsList = comics.slice(0, 10).map((comic, i) => (
-            <li key={i} className="character-profile-comics-list__item">
-                {comic}
-            </li>
-        ))
+        const comicsList = comics.slice(0, 10).map((comic, i) => {
+            const matchedComic = allComics.find(c => c.title === comic);
+
+            if (matchedComic) {
+                return (
+                    <Link to={`/comics/${matchedComic.id}`} key={i} className="character-profile-comics-list__item">
+                        {comic}
+                    </Link>
+                )
+            } else {
+                return (
+                    <li key={i} className="character-profile-comics-list__item">
+                        {comic}
+                    </li>
+                );
+            }
+        });
 
         if (comics.length > 10) {
             comicsList.push(

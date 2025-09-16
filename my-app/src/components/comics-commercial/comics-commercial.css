@@ -1,0 +1,21 @@
+.comics-gallery-commercial {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    padding-left: 45px;
+    padding-right: 25px;
+    background-color: #232222;
+    height: 100px;
+}
+
+.comics-gallery-commercial-wrapper {
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.comics-gallery-commercial-title {
+    text-align: left;
+    margin-left: 83px;
+    line-height: 34px;
+}

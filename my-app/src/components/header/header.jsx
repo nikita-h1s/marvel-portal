@@ -1,13 +1,30 @@
+import {Link, NavLink} from 'react-router';
 import './header.css'
 
 const Header = () => {
     return (
         <div className="header">
-            <h1 className="header-title"><span>Marvel</span> information portal</h1>
+            <Link to="/" className="header-title"><span>Marvel</span> information portal</Link>
             <div className="header-links">
-                <span><a href="#" className="link-characters">Characters</a></span>
-                <div className="header-slash"> / </div>
-                <a href="#" className="link-comics">Comics</a>
+                <NavLink
+                    to="/"
+                    className={({isActive}) =>
+                        isActive ? "link link-active" : "link"
+                    }
+                >
+                    Characters
+                </NavLink>
+
+                <div className="header-slash"> /</div>
+
+                <NavLink
+                    to="/comics"
+                    className={({isActive}) =>
+                        isActive ? "link link-active" : "link"
+                    }
+                >
+                    Comics
+                </NavLink>
             </div>
         </div>
     )

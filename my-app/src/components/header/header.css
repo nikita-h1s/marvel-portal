@@ -7,6 +7,8 @@
 .header-title {
     font-size: 28px;
     font-weight: bold;
+    color: black;
+    text-decoration: none;
 }
 
 .header-title span {
@@ -34,14 +36,13 @@
     color: #000;
 }
 
-.header-links:hover .link-characters {
-    color: #000;
+.link {
+    color: black;
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
 
-.header-links:hover .link-comics {
+.link-active {
     color: var(--main-red-color);
 }
 
-.header-links:hover .link-comics {
-    transition-delay: 0.1s;
-}
