@@ -1,0 +1,63 @@
+/* Background */
+
+.find-character-form {
+    background: #FFFFFF;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    padding: 25px;
+    text-align: left;
+}
+
+.find-character-form h1 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.find-character-form__inputs {
+    display: flex;
+    margin-top: 15px;
+    gap: 24px;
+}
+
+.find-character-form__inputs input {
+    width: 250px;
+    height: 38px;
+    padding-left: 10px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border: none;
+    outline: none;
+
+}
+
+.find-character-form__inputs input {
+    cursor: text;
+}
+
+.find-character-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.find-character-form__result {
+    display: flex;
+    margin-top: 15px;
+}
+
+.find-character-form__success {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.find-character-form__error-msg {
+    color: var(--main-red-color);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.find-character-form__success-msg {
+    color: var(--main-green-color);
+    font-size: 18px;
+    font-weight: bold;
+}

@@ -7,6 +7,7 @@ import Button from "../button/button.jsx";
 import Spinner from "../spinner/spinner.jsx";
 import ErrorMessage from "../error-message/error-message.jsx";
 import Skeleton from "../skeleton/skeleton.jsx";
+import FindCharacterForm from "../find-character-form/find-character-form.jsx";
 
 import useMarvelService from "../../services/marvel-service.jsx";
 import {Link} from "react-router";
@@ -55,11 +56,14 @@ const CharacterProfile = (props) => {
     const content = !(loading || error || !char) ? <View char={char} allComics={allComics}/> : null;
 
     return (
-        <div className="character-profile">
-            {skeleton}
-            {errorMessage}
-            {spinner}
-            {content}
+        <div className="character-profile-form-wrapper">
+            <div className="character-profile">
+                {skeleton}
+                {errorMessage}
+                {spinner}
+                {content}
+            </div>
+            <FindCharacterForm/>
         </div>
     )
 }
