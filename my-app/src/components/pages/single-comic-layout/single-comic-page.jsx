@@ -1,4 +1,5 @@
 import {Link} from "react-router";
+import {Helmet} from "react-helmet";
 
 import './single-comic-page.css'
 
@@ -7,6 +8,10 @@ const SingleComicPage = ({data}) => {
 
     return (
         <div className="single-comic-page-wrapper">
+            <Helmet>
+                <meta name="description" content={`${title} comics book`}/>
+                <title>{title}</title>
+            </Helmet>
             <img src={thumbnail} alt={title}/>
             <div className="single-comic-page-info">
                 <h2>{title}</h2>
