@@ -6,13 +6,13 @@ import ThorHummer from '../../assets/thor-hummer.png'
 
 import Button from '../button/button.jsx'
 import useMarvelService from "../../services/marvel-service.jsx";
-import Spinner from "../spinner/spinner.jsx";
-import ErrorMessage from "../error-message/error-message.jsx"
+
+import setContent from "../../utils/setContent.jsx";
 
 const CharacterInfo = () => {
     const [char, setChar] = useState({});
 
-    const {loading, error, getCharacter, clearError} = useMarvelService();
+    const {getCharacter, clearError, process, setProcess} = useMarvelService();
 
     useEffect(() => {
         updateChar();
@@ -26,7 +26,8 @@ const CharacterInfo = () => {
         clearError();
         const id = Math.floor(Math.random() * 20) + 1;
         getCharacter(id)
-            .then(onCharLoaded);
+            .then(onCharLoaded)
+            .then(() => setProcess("confirmed"));
     }
 
     const onCharUpdateClick = (e) => {
@@ -35,16 +36,10 @@ const CharacterInfo = () => {
         updateChar();
     }
 
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error) ? <View char={char}/> : null;
-
     return (
         <div className="character-info">
             <div className="character-info-description">
-                {errorMessage}
-                {spinner}
-                {content}
+                {setContent(process, View, {char: char})}
             </div>
             <div className="character-info-random-character">
                 <div className="character-info-random-character-titles-wrapper">

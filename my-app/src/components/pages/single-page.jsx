@@ -4,14 +4,13 @@ import ComicsCommercial from '../comics-commercial/comics-commercial.jsx';
 import {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import useMarvelService from "../../services/marvel-service.jsx";
-import Spinner from "../spinner/spinner.jsx";
-import ErrorMessage from "../error-message/error-message.jsx";
+import setContent from "../../utils/setContent.jsx";
 
 const SinglePage = ({Component, dataType}) => {
     const [data, setData] = useState(null);
 
     const {id} = useParams();
-    const {loading, error, clearError, getCharacter, getComics} = useMarvelService();
+    const {clearError, getCharacter, getComics, process, setProcess} = useMarvelService();
 
     useEffect(() => {
         updateData();
@@ -22,10 +21,14 @@ const SinglePage = ({Component, dataType}) => {
 
         switch (dataType) {
             case "character":
-                getCharacter(id).then(onDataLoaded);
+                getCharacter(id)
+                    .then(onDataLoaded)
+                    .then(() => setProcess("confirmed"));
                 break;
             case "comic":
-                getComics(id).then(onDataLoaded);
+                getComics(id)
+                    .then(onDataLoaded)
+                    .then(() => setProcess("confirmed"));
         }
     }
 
@@ -33,17 +36,11 @@ const SinglePage = ({Component, dataType}) => {
         setData(data);
     }
 
-    const spinner = loading ? <Spinner/> : null;
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const content = !(loading || error || !data) ? <Component data={data}/> : null;
-
     return (
         <>
             <ComicsCommercial/>
             <div className="single-page-content">
-                {spinner}
-                {errorMessage}
-                {content}
+                {setContent(process, Component, {data: data})}
             </div>
         </>
     )

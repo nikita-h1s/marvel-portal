@@ -9,13 +9,28 @@ import useMarvelService from "../../services/marvel-service.jsx";
 import Spinner from "../spinner/spinner.jsx";
 import ErrorMessage from "../error-message/error-message.jsx";
 
+const setContent = (process, Component, newItemLoading, props) => {
+    switch (process) {
+        case "waiting":
+            return <Spinner/>;
+        case "loading":
+            return newItemLoading ? <Component {...props}/> : <Spinner/>;
+        case "confirmed":
+            return <Component {...props}/>;
+        case "error":
+            return <ErrorMessage/>;
+        default:
+            return new Error('Unexpected process state');
+    }
+}
+
 const ComicsGallery = () => {
     const [comicsList, setComicsList] = useState([]);
     const [offset, setOffset] = useState(0);
     const [newItemLoading, setNewItemLoading] = useState(false);
     const [comicsEnded, setComicsEnded] = useState(false);
 
-    const {loading, error, clearError, getAllComics} = useMarvelService();
+    const {clearError, getAllComics, process, setProcess} = useMarvelService();
 
     useEffect(() => {
         onRequest(offset, true)
@@ -35,6 +50,7 @@ const ComicsGallery = () => {
             setComicsList(prevComics => [...prevComics, ...newComics]);
             setOffset(prevOffset => prevOffset + 8);
             setComicsEnded(comicsEnded => ended);
+            setProcess("confirmed");
         } catch (e) {
             console.error(e);
         } finally {
@@ -42,25 +58,11 @@ const ComicsGallery = () => {
         }
     }
 
-    const spinner = loading && !newItemLoading ? <Spinner /> : null;
-    const errorMessage = error ? <ErrorMessage/> : null;
-
     return (
         <>
             <ComicsCommercial/>
             <div className="comics-gallery">
-                {spinner}
-                {errorMessage}
-
-                {comicsList.map((el) => (
-                    <Link to={`/comics/${el.id}`} className="comics-gallery-item" key={el.id}>
-                        <img src={el.thumbnail} alt=""/>
-                        <div className="comics-gallery-item-title">
-                            {el.title}
-                        </div>
-                        <div className="comics-gallery-item-price">{el.price} $</div>
-                    </Link>
-                ))}
+                {setContent(process, View, newItemLoading, {comicsList})}
             </div>
             <Button
                 text="Load More"
@@ -71,6 +73,20 @@ const ComicsGallery = () => {
                 disabled={newItemLoading}
             />
         </>
+    )
+}
+
+const View = ({comicsList}) => {
+    return (
+        comicsList.map((el) => (
+            <Link to={`/comics/${el.id}`} className="comics-gallery-item" key={el.id}>
+                <img src={el.thumbnail} alt=""/>
+                <div className="comics-gallery-item-title">
+                    {el.title}
+                </div>
+                <div className="comics-gallery-item-price">{el.price} $</div>
+            </Link>
+        ))
     )
 }
 

@@ -3,20 +3,19 @@ import './character-profile.css'
 import {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
-import Button from "../button/button.jsx";
-import Spinner from "../spinner/spinner.jsx";
-import ErrorMessage from "../error-message/error-message.jsx";
-import Skeleton from "../skeleton/skeleton.jsx";
-import FindCharacterForm from "../find-character-form/find-character-form.jsx";
+import Button from "../button/button";
+import FindCharacterForm from "../find-character-form/find-character-form";
+import setContent from "../../utils/setContent";
 
-import useMarvelService from "../../services/marvel-service.jsx";
+import useMarvelService from "../../services/marvel-service";
 import {Link} from "react-router";
 
 const CharacterProfile = (props) => {
     const [char, setChar] = useState(null);
     const [allComics, setAllComics] = useState([]);
 
-    const {loading, error, getCharacter, getAllComics, clearError} = useMarvelService();
+    const {getCharacter, getAllComics,
+        clearError, process, setProcess} = useMarvelService();
 
     useEffect(() => {
         updateChar();
@@ -44,24 +43,17 @@ const CharacterProfile = (props) => {
         clearError();
         getCharacter(charId)
             .then(onCharLoaded)
+            .then(() => setProcess("confirmed"));
     }
 
     const onCharLoaded = (char) => {
         setChar(char);
     }
 
-    const skeleton = char || loading || error ? null : <Skeleton/>;
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error || !char) ? <View char={char} allComics={allComics}/> : null;
-
     return (
         <div className="character-profile-form-wrapper">
             <div className="character-profile">
-                {skeleton}
-                {errorMessage}
-                {spinner}
-                {content}
+                {setContent(process, View, {char: char, allComics: allComics})}
             </div>
             <FindCharacterForm/>
         </div>

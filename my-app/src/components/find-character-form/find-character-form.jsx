@@ -8,10 +8,23 @@ import * as Yup from 'yup';
 import {useState} from "react";
 import {Link} from "react-router";
 
+const setContent = (process) => {
+    switch (process) {
+        case "waiting":
+            return false;
+        case "loading":
+            return true;
+        case "confirmed":
+            return false;
+        default:
+            return new Error('Unexpected process state');
+    }
+}
+
 const FindCharacterForm = () => {
     const [character, setCharacter] = useState(null);
     const [found, setFound] = useState(null);
-    const {getCharacterByName, loading, clearError} = useMarvelService();
+    const {getCharacterByName, clearError, process, setProcess} = useMarvelService();
 
     const validationSchema = Yup.object({
         name: Yup.string().required('This field is required')
@@ -31,7 +44,8 @@ const FindCharacterForm = () => {
         clearError();
 
         getCharacterByName(values.name)
-            .then(onCharLoaded);
+            .then(onCharLoaded)
+            .then(() => setProcess("confirmed"));
     }
 
     return (
@@ -53,7 +67,7 @@ const FindCharacterForm = () => {
                             type="text"
                             placeholder="Enter name"
                         />
-                        <Button text="Find" width={101} type="submit" disabled={loading}/>
+                        <Button text="Find" width={101} type="submit" disabled={setContent(process)}/>
                     </div>
                     <div className="find-character-form__result">
                         {found && character && (
